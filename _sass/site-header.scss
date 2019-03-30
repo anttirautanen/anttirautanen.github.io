@@ -2,7 +2,7 @@
 
 @mixin backgroundBlock($color) {
   align-items: stretch;
-  background: url("/bg-header-concrete.png"), linear-gradient(to right, darken($color, 10%) 0, darken($color, 5%) 100%);
+  background: url("/bg-concrete.png") 100% 0, linear-gradient(to right, darken($color, 10%) 0, darken($color, 5%) 100%);
   display: flex;
   justify-content: space-between;
   height: 40px;
