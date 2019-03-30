@@ -1,0 +1,14 @@
+@import "variables";
+
+.index__blog-post-list {
+  padding: 20px 15px 0 15px;
+}
+
+.index__blog-post-date {
+  color: $colorMuted;
+  font-weight: 200;
+}
+
+.index__blog-post-link {
+  font-size: 30px;
+}
