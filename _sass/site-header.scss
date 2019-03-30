@@ -17,15 +17,8 @@
 
 .site-header {
   .r-bg {
-    padding-top: 40px;
-    z-index: 100;
-
     .r-bg__top {
       @include backgroundBlock($colorTop);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 101;
     }
 
     .r-bg__middle {
