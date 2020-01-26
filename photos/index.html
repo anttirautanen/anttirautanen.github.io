@@ -95,6 +95,7 @@
             reject()
           }
         }
+        xhr.onerror = (_) => reject()
         xhr.send()
       })
     }
