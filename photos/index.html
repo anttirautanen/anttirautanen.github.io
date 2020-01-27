@@ -107,16 +107,16 @@
       errorMessage.removeAttribute("style")
     }
 
-    let photoFileNames
+    let response
     try {
-      photoFileNames = await getPhotoFileNames()
+      response = await getPhotoFileNames()
     } catch (error) {
       showErrorMessage()
       return
     }
 
     const swiperWrapper = document.querySelector("div.swiper-wrapper")
-    photoFileNames.forEach(photoFileName => {
+    response.files.forEach(photoFileName => {
       const node = document.createElement("div")
       const image = document.createElement("img")
       image.setAttribute("data-src", getUrl(bucket, photoFileName))
