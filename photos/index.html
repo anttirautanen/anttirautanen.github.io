@@ -54,6 +54,22 @@
             justify-items: center;
             height: 100%;
         }
+
+        #download-all {
+            color: #fff;
+            background: transparent;
+            bottom: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            font-family: monospace;
+            border-radius: 4px;
+            right: 10px;
+            cursor: pointer;
+            opacity: 0.5;
+            position: fixed;
+            padding: 3px 10px;
+            z-index: 2;
+            text-decoration: none;
+        }
     </style>
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 </head>
@@ -72,6 +88,8 @@
 </div>
 
 <div id="error-message" style="display: none;">No photos found</div>
+
+<a id="download-all" style="display: none;">Lataa kaikki</a>
 
 <script type="text/javascript">
   async function run() {
@@ -128,6 +146,12 @@
       node.setAttribute("class", "swiper-slide")
       swiperWrapper.append(node)
     })
+
+    if (response.allZip) {
+      const downloadAllLink = document.querySelector("#download-all")
+      downloadAllLink.removeAttribute("style")
+      downloadAllLink.setAttribute("href", getUrl(bucket, response.allZip))
+    }
 
     new Swiper(".swiper-container", {
       direction: "horizontal",
