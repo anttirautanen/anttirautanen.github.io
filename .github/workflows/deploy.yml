@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14.x'
+      
+      - uses: actions/checkout@v2
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm clean
+          npm run build
+      
+      - name: Release
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Release
+          branch: build
