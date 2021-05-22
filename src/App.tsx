@@ -11,7 +11,7 @@ const Container = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: 42vh;
+  height: 50vh;
 `
 
 const Heading = styled.div`
@@ -19,6 +19,6 @@ const Heading = styled.div`
   border-top: 1px solid #618985;
   color: #618985;
   font-family: "Bungee Hairline", cursive;
-  font-size: 64px;
+  font-size: min(7vw, 64px);
   padding: 20px 0;
 `
