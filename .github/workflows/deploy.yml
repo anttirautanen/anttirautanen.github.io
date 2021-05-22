@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v2.1.5
         with:
           node-version: '14.x'
-      
+
       - uses: actions/checkout@v2
 
       - name: Install and build
@@ -24,7 +24,7 @@ jobs:
           npm ci
           npm clean
           npm run build
-      
+
       - name: Release
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
