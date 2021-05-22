@@ -22,7 +22,7 @@ jobs:
       - name: Install and build
         run: |
           npm ci
-          npm clean
+          npm run clean
           npm run build
 
       - name: Release
