@@ -22,11 +22,4 @@ jobs:
       - name: Install and build
         run: |
           npm ci
-          npm run clean
-          npm run build
-
-      - name: Release
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Release
-          branch: gh-pages
+          npm run deploy
