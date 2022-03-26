@@ -1,1 +1,0 @@
-{"mappings":"AAAA,KACA,qBACA,CACA,iBAGA,kBACA,CAEA,KAEA,6BAAA,CADA,aAEA","sources":["saastot/global.css"],"sourcesContent":["html {\n  box-sizing: border-box;\n}\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n}\n\nhtml {\n  font-size: 1em;\n  font-family: \"Roboto Slab\", serif;\n}\n"],"names":[],"version":3,"file":"index.bf160cd4.css.map"}
