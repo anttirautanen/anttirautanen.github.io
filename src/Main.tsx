@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: center;
   display: grid;
   grid-template-rows: 2fr 1fr;
-  height: 100vh;
+  height: calc(100vh - 4rem);
   padding: 2rem;
 `
 
