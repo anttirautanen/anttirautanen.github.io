@@ -7,14 +7,11 @@ interface GalleryProps {
 }
 
 function getThumbImageURLs(gallery: GalleryDescriptionWithPath): URL[] {
-  const thumbImageURLs: URL[] = []
-
-  for (let i = 0; i < gallery.imageCount; i++) {
-    const galleryPath = gallery.path.replace("../../public", "")
-    thumbImageURLs.push(new URL(`${galleryPath}thumbs/${i + 1}.jpeg`, import.meta.url))
-  }
-
-  return thumbImageURLs.map((mod) => mod)
+  const galleryPath = gallery.path.replace("../../public", "")
+  return Array.from(
+    { length: gallery.imageCount },
+    (_, index) => new URL(`${galleryPath}thumbs/${index + 1}.jpeg`, import.meta.url)
+  )
 }
 
 export const Gallery = ({ gallery }: GalleryProps) => {
