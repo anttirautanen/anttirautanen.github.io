@@ -138,16 +138,17 @@ const ThumbGalleryContainer = styled.div<{
 
 const Caption = styled.div`
   background: #000;
-  clip-path: polygon(0.1em 0.05em, 100% 0, calc(100% - 0.2em) 100%, 0.2em calc(100% - 0.1em));
   color: #fff9f3;
+  font-size: 0.9em;
   font-family: monospace;
-  left: 1em;
-  margin-right: 1em;
+  left: 0;
   opacity: 0;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.5em;
   position: absolute;
-  top: 0;
+  right: 0;
+  bottom: -0.5em;
   transition: all 0.1s;
+  word-break: break-word;
 `
 
 const ImageContainer = styled.div<{ $area: string }>`
@@ -157,7 +158,7 @@ const ImageContainer = styled.div<{ $area: string }>`
 
   &:hover ${Caption} {
     opacity: 1;
-    top: 1em;
+    bottom: 0;
   }
 `
 const Image = styled.div<{ $imagePath: string }>`
