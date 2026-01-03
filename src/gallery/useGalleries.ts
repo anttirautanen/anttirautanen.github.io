@@ -1,7 +1,7 @@
 import type { GalleryDescription, GalleryDescriptionWithPath } from "./types.ts"
 
 export function useGalleries(): GalleryDescriptionWithPath[] {
-  const galleries = import.meta.glob<GalleryDescription>("../../public/*/gallery.ts", {
+  const galleries = import.meta.glob<GalleryDescription>("../../public/galleries/*/gallery.ts", {
     import: "default",
     eager: true,
   })
