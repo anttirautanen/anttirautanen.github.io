@@ -1,28 +1,25 @@
 import type { GalleryDescriptionWithPath } from "./types.ts"
 import styled, { css } from "styled-components"
-import { Suspense, use, useEffect } from "react"
+import { Suspense, useEffect } from "react"
 
 interface GalleryProps {
   gallery: GalleryDescriptionWithPath
 }
 
-function getThumbImagePaths(gallery: GalleryDescriptionWithPath): Promise<string[]> {
-  return new Promise((resolve) => {
-    const thumbImageModules: Promise<any>[] = []
-    for (let i = 0; i < gallery.imageCount; i++) {
-      const galleryPath = import.meta.env.PROD ? gallery.path.replace(/public\//, "") : gallery.path
-      thumbImageModules.push(import(`${galleryPath}thumbs/${i + 1}.jpeg`))
-    }
+function getThumbImageURLs(gallery: GalleryDescriptionWithPath): URL[] {
+  const thumbImageURLs: URL[] = []
 
-    Promise.all(thumbImageModules).then((thumbImageModules) => {
-      const imagePaths = thumbImageModules.map((mod) => mod.default)
-      resolve(imagePaths)
-    })
-  })
+  for (let i = 0; i < gallery.imageCount; i++) {
+    const galleryPath = gallery.path.replace("../../public", "")
+    console.log(gallery.path.replace("../../public", ""))
+    thumbImageURLs.push(new URL(`${galleryPath}thumbs/${i + 1}.jpeg`, import.meta.url))
+  }
+
+  return thumbImageURLs.map((mod) => mod)
 }
 
 export const Gallery = ({ gallery }: GalleryProps) => {
-  const thumbImagePathsPromise = getThumbImagePaths(gallery)
+  const thumbImageUrls = getThumbImageURLs(gallery)
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -43,7 +40,7 @@ export const Gallery = ({ gallery }: GalleryProps) => {
     <div>
       <Heading>{gallery.name}</Heading>
       <Suspense fallback={<div>LOADING IMAGE...</div>}>
-        <ThumbGallery gallery={gallery} thumbImagePathsPromise={thumbImagePathsPromise} />
+        <ThumbGallery gallery={gallery} thumbImageUrls={thumbImageUrls} />
       </Suspense>
     </div>
   )
@@ -51,11 +48,10 @@ export const Gallery = ({ gallery }: GalleryProps) => {
 
 interface ThumbGalleryProps {
   gallery: GalleryDescriptionWithPath
-  thumbImagePathsPromise: Promise<string[]>
+  thumbImageUrls: URL[]
 }
 
-const ThumbGallery = ({ gallery, thumbImagePathsPromise }: ThumbGalleryProps) => {
-  const thumbImagesPaths = use(thumbImagePathsPromise)
+const ThumbGallery = ({ gallery, thumbImageUrls }: ThumbGalleryProps) => {
   const rows = gallery.grid.match(/".*"/g)
   if (!rows) {
     return (
@@ -86,10 +82,10 @@ const ThumbGallery = ({ gallery, thumbImagePathsPromise }: ThumbGalleryProps) =>
       $columnCount={columnCount}
       $rowCount={rowCount}
     >
-      {thumbImagesPaths.map((path, index) => (
-        <ImageContainer key={path} $area={areaLetters[index]}>
+      {thumbImageUrls.map((thumbImageURL, index) => (
+        <ImageContainer key={thumbImageURL.href} $area={areaLetters[index]}>
           <Caption>{gallery.captions[index]}</Caption>
-          <Image $imagePath={path} />
+          <Image $imagePath={thumbImageURL.href} />
         </ImageContainer>
       ))}
     </ThumbGalleryContainer>
