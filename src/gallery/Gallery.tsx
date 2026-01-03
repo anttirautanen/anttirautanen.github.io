@@ -2,6 +2,8 @@ import type { GalleryDescriptionWithPath } from "./types.ts"
 import styled, { css } from "styled-components"
 import { Suspense, useEffect } from "react"
 
+const galleryEdgePadding = "4vw"
+
 interface GalleryProps {
   gallery: GalleryDescriptionWithPath
 }
@@ -34,7 +36,7 @@ export const Gallery = ({ gallery }: GalleryProps) => {
 
   return (
     <div>
-      <Heading>{gallery.name}</Heading>
+      <Heading $padding={galleryEdgePadding}>{gallery.name}</Heading>
       <Suspense fallback={<div>LOADING IMAGE...</div>}>
         <ThumbGallery gallery={gallery} thumbImageUrls={thumbImageUrls} />
       </Suspense>
@@ -69,12 +71,11 @@ const ThumbGallery = ({ gallery, thumbImageUrls }: ThumbGalleryProps) => {
   const rowCount = rows.length
   const firstGridRowDefinition = firstGridRowMatch[1]
   const columnCount = firstGridRowDefinition.split(" ").length
-  const horizontalPadding = 4
 
   return (
     <ThumbGalleryContainer
       $areas={gallery.grid}
-      $padding={horizontalPadding}
+      $padding={galleryEdgePadding}
       $columnCount={columnCount}
       $rowCount={rowCount}
     >
@@ -88,16 +89,17 @@ const ThumbGallery = ({ gallery, thumbImageUrls }: ThumbGalleryProps) => {
   )
 }
 
-const Heading = styled.h2`
+const Heading = styled.h2<{ $padding: string }>`
   justify-self: center;
   background-color: #fff9f3;
-  clip-path: polygon(0.1em 0.05em, 100% 0, calc(100% - 0.2em) 100%, 0.2em calc(100% - 0.1em));
+  clip-path: polygon(0 0.05em, 100% 0, calc(100% - 0.2em) 100%, 0.1em calc(100% - 0.05em));
   font-family: monospace;
   font-weight: 700;
-  font-size: 3em;
+  font-size: 6vmin;
   letter-spacing: 0.02em;
-  margin: 0 0 -1em 0;
-  padding: 0.5em 1em;
+  line-height: 0.85;
+  margin: 2em 0 calc(-${({ $padding }) => $padding} / 2) 0;
+  padding: ${({ $padding }) => $padding};
   text-align: center;
   text-shadow: 0 0 1em rgba(255, 255, 0, 0.5);
 `
@@ -111,18 +113,18 @@ const Error = styled.div`
 
 const ThumbGalleryContainer = styled.div<{
   $areas: string
-  $padding: number
+  $padding: string
   $columnCount: number
   $rowCount: number
 }>`
   background: #000;
   display: grid;
   gap: 2vw;
-  padding: ${({ $padding }) => $padding}vw;
+  padding: ${({ $padding }) => $padding};
 
   ${({ $areas, $columnCount, $rowCount, $padding }) => {
     const gaps = `${($columnCount - 1) * 2}vw`
-    const fullWidth = css`calc(100vw - ${$padding}vw - ${$padding}vw - ${gaps} - var(--scrollbar-width))`
+    const fullWidth = css`calc(100vw - ${$padding} - ${$padding} - ${gaps} - var(--scrollbar-width))`
     const cellSize = css`calc(${fullWidth} / ${$columnCount})`
     return css`
       grid-template-areas: ${$areas};
