@@ -1,7 +1,23 @@
 import { createRoot } from "react-dom/client"
-import { StrictMode } from "react"
+import { StrictMode, Suspense } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import "normalize.css"
+import { GalleryList } from "./gallery/GalleryList.tsx"
+import { useGalleries } from "./gallery/useGalleries.ts"
+
+const Main = () => {
+  const galleries = useGalleries()
+  return (
+    <Container>
+      <Heading>
+        antti<Surname>rautanen</Surname>.com
+      </Heading>
+      <Suspense fallback={<div>Loading...</div>}>
+        <GalleryList galleries={galleries} />
+      </Suspense>
+    </Container>
+  )
+}
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -10,14 +26,13 @@ body {
 `
 
 const Container = styled.div`
-  align-items: center;
   display: grid;
-  grid-template-rows: 2fr 1fr;
+  grid-template-rows: 1fr 2fr;
   height: calc(100vh - 4rem);
-  padding: 2rem;
 `
 
 const Heading = styled.h1`
+  align-self: end;
   color: #ffe5b8;
   font-family: monospace;
   font-weight: 700;
@@ -33,10 +48,6 @@ const Surname = styled.span`
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <GlobalStyle />
-    <Container>
-      <Heading>
-        antti<Surname>rautanen</Surname>.com
-      </Heading>
-    </Container>
+    <Main />
   </StrictMode>
 )
