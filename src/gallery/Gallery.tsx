@@ -11,7 +11,6 @@ function getThumbImageURLs(gallery: GalleryDescriptionWithPath): URL[] {
 
   for (let i = 0; i < gallery.imageCount; i++) {
     const galleryPath = gallery.path.replace("../../public", "")
-    console.log(gallery.path.replace("../../public", ""))
     thumbImageURLs.push(new URL(`${galleryPath}thumbs/${i + 1}.jpeg`, import.meta.url))
   }
 
