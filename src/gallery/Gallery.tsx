@@ -10,7 +10,8 @@ function getThumbImagePaths(gallery: GalleryDescriptionWithPath): Promise<string
   return new Promise((resolve) => {
     const thumbImageModules: Promise<any>[] = []
     for (let i = 0; i < gallery.imageCount; i++) {
-      thumbImageModules.push(import(`${gallery.path}thumbs/${i + 1}.jpeg`))
+      const galleryPath = import.meta.env.PROD ? gallery.path.replace(/public\//, "") : gallery.path
+      thumbImageModules.push(import(`${galleryPath}thumbs/${i + 1}.jpeg`))
     }
 
     Promise.all(thumbImageModules).then((thumbImageModules) => {
