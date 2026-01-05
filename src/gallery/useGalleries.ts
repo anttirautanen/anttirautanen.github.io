@@ -5,5 +5,7 @@ export function useGalleries(): GalleryDescriptionWithPath[] {
     import: "default",
     eager: true,
   })
-  return Object.keys(galleries).map((path) => ({ path: path.replace(/gallery.ts$/, ""), ...galleries[path] }))
+  return Object.keys(galleries)
+    .map((path) => ({ path: path.replace(/gallery.ts$/, ""), ...galleries[path] }))
+    .sort((galleryA, galleryB) => galleryB.date.localeCompare(galleryA.date))
 }
