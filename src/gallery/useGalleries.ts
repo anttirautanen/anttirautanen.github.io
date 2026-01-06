@@ -6,6 +6,9 @@ export function useGalleries(): GalleryDescriptionWithPath[] {
     eager: true,
   })
   return Object.keys(galleries)
-    .map((path) => ({ path: path.replace(/gallery.ts$/, ""), ...galleries[path] }))
+    .map((path) => {
+      const imageImportPath = path.replace(/gallery.ts$/, "").replace(/^\.\.\/public/, "")
+      return { path: imageImportPath, ...galleries[path] }
+    })
     .sort((galleryA, galleryB) => galleryB.date.localeCompare(galleryA.date))
 }
