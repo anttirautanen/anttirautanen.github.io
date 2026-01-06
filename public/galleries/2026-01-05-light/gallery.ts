@@ -1,4 +1,4 @@
-import { GalleryDescription } from "../../../src/gallery/types"
+import { GalleryDescription } from "@anttirautanen/gallery"
 
 const Gallery: GalleryDescription = {
   name: "Valo",
