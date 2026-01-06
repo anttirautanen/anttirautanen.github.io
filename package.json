@@ -17,6 +17,7 @@
   "type": "commonjs",
   "homepage": "https://anttirautanen.com",
   "devDependencies": {
+    "@anttirautanen/gallery": "0.1.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",

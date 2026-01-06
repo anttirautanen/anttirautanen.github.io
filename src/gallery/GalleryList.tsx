@@ -1,5 +1,5 @@
-import type { GalleryDescriptionWithPath } from "./types.ts"
-import { Gallery } from "./Gallery.tsx"
+import type { GalleryDescriptionWithPath } from "@anttirautanen/gallery"
+import { Gallery } from "@anttirautanen/gallery"
 
 interface GalleryProps {
   galleries: GalleryDescriptionWithPath[]

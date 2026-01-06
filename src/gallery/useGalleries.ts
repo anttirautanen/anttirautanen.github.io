@@ -1,4 +1,4 @@
-import type { GalleryDescription, GalleryDescriptionWithPath } from "./types.ts"
+import type { GalleryDescription, GalleryDescriptionWithPath } from "@anttirautanen/gallery"
 
 export function useGalleries(): GalleryDescriptionWithPath[] {
   const galleries = import.meta.glob<GalleryDescription>("../../public/galleries/*/gallery.ts", {
