@@ -1,4 +1,4 @@
-import type { GalleryDescription } from "../types.ts"
+import { GalleryDescription } from "../../../src/gallery/types"
 
 const Gallery: GalleryDescription = {
   name: "Portaat",
